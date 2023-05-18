@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/JohnDarrrel/go-fiber-postgres/database"
-	"github.com/JohnDarrrel/go-fiber-postgres/database/models"
+	"github.com/JohnDarrrel/go-fiber-postgres/models"
+	"github.com/JohnDarrrel/go-fiber-postgres/storage"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"gorm.io/gorm"
@@ -126,7 +126,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	config := &database.Config{
+	config := &storage.Config{
 		Host:     os.Getenv("DB_HOST"),
 		Port:     os.Getenv("DB_PORT"),
 		Password: os.Getenv("DB_PASS"),
@@ -135,7 +135,7 @@ func main() {
 		DBName:   os.Getenv("DB_NAME"),
 	}
 
-	db, err := database.NewConnection(config)
+	db, err := storage.NewConnection(config)
 
 	if err != nil {
 		log.Fatal("could not load the database")
